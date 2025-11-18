@@ -6,6 +6,20 @@ and verify that dim(V1(A)) equals (or exceeds) the number of
 the components in the web.
 """
 
+"""
+Let's define component: 
+Component of a web = a group of pages that are connected with 
+each other (directed or undirected), but not connected to the rest of the web.
+
+And V1(A):
+Eigenspace of the matrix A
+
+dim(V1(A)):
+tells us the amount of subwebs. In other words, how many independent pagerank
+spaces exist in the web. of course we only take the ones with eigval = 1
+"""
+
+import numpy as np
 from src import create_link_matrix, is_column_stochastic, cal_importance_score
 
 if __name__ == "__main__":
@@ -25,3 +39,14 @@ if __name__ == "__main__":
     print(f"Is link matrix column stochastic: {is_column_stochastic(link_mat)}\n")
 
     print(link_mat)
+
+    eigVals, eigVecs = np.linalg.eig(link_mat)
+
+    # indexes of the eigspaces with eigval = 1
+    idx = np.where(np.isclose(eigVals, 1))
+
+    if len(idx[0]) >= 3:
+        print("dim(V1(A)) equals (or exceeds) the number of the components in the web")
+    else:
+        print("dim(V1(A)) does not equal the number of components in the web")
+
