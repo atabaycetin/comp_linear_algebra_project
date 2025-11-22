@@ -20,7 +20,7 @@ spaces exist in the web. of course we only take the ones with eigval = 1
 """
 
 import numpy as np
-from src import create_link_matrix, is_column_stochastic, cal_importance_score
+from src import create_link_matrix, is_column_stochastic
 
 if __name__ == "__main__":
     links = {
@@ -43,6 +43,7 @@ if __name__ == "__main__":
     eigVals, eigVecs = np.linalg.eig(link_mat)
 
     # indexes of the eigspaces with eigval = 1
+    # decided to use .isclose due to possible rounding errors
     idx = np.where(np.isclose(eigVals, 1))
 
     if len(idx[0]) >= 3:
