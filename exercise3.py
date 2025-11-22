@@ -1,4 +1,4 @@
-#---------------  EXERCISE 2 ---------------#
+#---------------  EXERCISE 3 ---------------#
 
 """
 Exercise 3. Add a link from page 5 to page 1
