@@ -24,9 +24,7 @@ def create_link_matrix(links_list):
         # I want to handle dangling nodes in the simplest way possible.
         # Let's just distribute its vote to all pages in the web
         if len(link) == 0:
-            weight = 1.0 / n
-            for i in range(1, n + 1):
-                link_matrix[i - 1, j - 1] = weight
+            continue
         else:
             weight = 1.0 / len(link)
             for i in link:
