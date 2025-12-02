@@ -8,20 +8,15 @@ What is the dimension of V1(A)?
 """
 
 import numpy as np
-from src import create_link_matrix, is_column_stochastic, cal_importance_score
+from src import create_link_matrix, figure22_links
 
 if __name__ == "__main__":
-    links = {
-        1: [2],
-        2: [1],
-        3: [4],
-        4: [3],
-        5: [3, 4]
-    }
 
-    org_link_mat = create_link_matrix(links) # original figure 2 link matrix
+    org_link_mat = create_link_matrix(figure22_links) # original figure 2 link matrix
 
-    links[5].append(1); new_link_mat = create_link_matrix(links)
+    new_links = {k: v.copy() for k, v in figure22_links.items()}
+
+    new_links[5].append(1); new_link_mat = create_link_matrix(new_links)
 
     eigval, eigvec = np.linalg.eig(new_link_mat)
 
