@@ -17,7 +17,7 @@ new_links.get(2).append(6)
 
 linkmatrix = create_link_matrix(new_links)
 
-S = np.ones(len(linkmatrix))*(1/len(linkmatrix))
+S = np.ones(linkmatrix.shape)*(1/len(linkmatrix))
 m = 0.15
 M = (1-m)*linkmatrix + m*S
 

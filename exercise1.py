@@ -32,7 +32,7 @@ if __name__ == "__main__":
     scores_new_A = cal_importance_score(new_A)
 
     if scores_new_A[2] > scores_new_A[0]:
-        print("It worked lol. They did boost page 3's score")
+        print("It worked. They did boost page 3's score")
     else:
         print("They can keep being infuriated")
 
