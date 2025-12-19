@@ -21,7 +21,7 @@ def iterativeapproach(link_matrix):
         x0 = (1-m)*link_matrix@x0 + m*s
     return xvalues
 
-def main():
+if __name__ == "__main__":
     q = cal_importance_score(M)
     print(f"{'k':<5} | {'Error ||M^k x0 - q||_1':<25} | {'Ratio (Error_k / Error_k-1)':<25}")
     print("-" * 60)
@@ -47,6 +47,3 @@ def main():
     sorted_eig_mags = np.sort(np.abs(eigenvalues))[::-1]  # Sort descending
     lambda_2 = sorted_eig_mags[1]  # The 2nd one (index 1)
     print(f"|lambda_2| (Actual convergence rate): {lambda_2:.4f}")
-
-if __name__ == "__main__":
-    main()
