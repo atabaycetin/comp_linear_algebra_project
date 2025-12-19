@@ -12,7 +12,8 @@ from src import create_link_matrix, cal_importance_score, figure21_links
 
 if __name__ == "__main__":
 
-    new_links = {k: v.copy() for k, v in figure21_links.items()}; new_links[3].remove(1)
+    new_links = {k: v.copy() for k, v in figure21_links.items()}
+    new_links[3].remove(1)
 
     link_mat = create_link_matrix(new_links)
 
