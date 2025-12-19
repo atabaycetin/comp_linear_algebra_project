@@ -11,6 +11,8 @@ import numpy as np
 from src import create_link_matrix, cal_importance_score
 from exercise11 import new_links as old_links
 
+global M
+
 new_links = {k: v.copy() for k,v in old_links.items()}
 new_links[6] = [1,2,3,4,5]
 

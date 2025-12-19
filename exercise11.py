@@ -11,12 +11,17 @@ from src import create_link_matrix, cal_importance_score, figure21_links
 new_links = {k: v.copy() for k, v in figure21_links.items()}
 new_links.get(3).append(5)
 new_links[5] = [3]
-
 linkmatrix = create_link_matrix(new_links)
 
-S = np.ones(linkmatrix.shape)*(1/len(linkmatrix))
-m = 0.15
-M = (1-m)*linkmatrix + m*S
+global M
+
+def main():
+    global M
+
+    S = np.ones(linkmatrix.shape) * (1 / len(linkmatrix))
+    m = 0.15
+    M = (1 - m) * linkmatrix + m * S
 
 if __name__ == "__main__":
+    main()
     print(cal_importance_score(M))
