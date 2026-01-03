@@ -1,13 +1,8 @@
 import numpy as np
-from pywin.mfc.afxres import AFX_IDP_SQL_ILLEGAL_MODE
-
 from src import create_link_matrix, cal_importance_score, figure21_links
 
 
 if __name__ == '__main__':
-
-    np.random.seed(42)
-
     # construct the link matrix A
     A = create_link_matrix(figure21_links)
 
@@ -31,16 +26,17 @@ if __name__ == '__main__':
 
     print(f"\nIs A_mod equal to A_tilde: {np.allclose(A_mod, A_tilde)}")
 
-    print("We have proven that both matrices are equal\n")
+    if np.allclose(A_mod, A_tilde):
+        print("We have showed that both matrices are equal\n")
 
     # calculate eigenvalues and eigenvectors of A
     eigval_A, eigvec_A = np.linalg.eig(A)
 
     # pick an arbitrary one to check
-    eig_lambda = eigval_A[0].real
-    x_ = eigvec_A[:, 0].real
+    eig_lambda = eigval_A[0]
+    x_ = eigvec_A[:, 0]
 
-    # supposed eigenvector (to be proven)
+    # supposed eigenvector (to be shown)
     y = P @ x_
 
     # let's see if the effects of the matrix A_mod matches (it is its eigenvalue)
@@ -53,3 +49,12 @@ if __name__ == '__main__':
 
     # Check if they are equal
     print(f"Is y = Px an eigenvector of A_tilde: {np.allclose(check_1, check_2)}")
+
+    print("\nFinal Comments:\nAs probably we can intuitively conclude, the importance scores of the pages in a web\n"
+          "do not depend on how the pages are indexed, but rather depend only on the link structure.\n"
+          "In the first part, we perfomed permutation on the link matrix, and we know that permutations\n"
+          "do not change the eigenvalues, it rather permutes the eigenvector entries. (bc perms are products of row swaps)\n"
+          "At last, let's numeri this phenomenon mathematically:\n"
+          "We have Ã = PAP, Ax = λx, and we will define y = Px:\n"
+          "Ãy = (PAP)(Px) = PA(P²)x = PAx = P(λx) = λ(Px) = λy\n"
+          "End of Comment")
