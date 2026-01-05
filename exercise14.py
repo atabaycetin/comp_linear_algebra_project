@@ -17,7 +17,7 @@ def iterativeapproach(link_matrix):
     xvalues = []
     for k in range(50):
         if(k==0 or k==4 or k==9 or k==49):
-            xvalues.append((1-m)*link_matrix@x0 + m*s)#this gives us M^(k-1)x0
+            xvalues.append(x0)#this gives us M^(k-1)x0
         x0 = (1-m)*link_matrix@x0 + m*s
     return xvalues
 
