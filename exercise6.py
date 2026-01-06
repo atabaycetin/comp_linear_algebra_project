@@ -1,3 +1,23 @@
+#---------------  EXERCISE 6 ---------------#
+
+"""
+Exercise 6. Implicit in our analysis up to this point is the assertion that the manner in which
+the pages of a web W are indexed has no effect on the importance score assigned to any given page.
+Prove this, as follows: Let W contains n pages, each page assigned an index 1 through n, and let
+A be the resulting link matrix. Suppose we then transpose the indices of pages i and j (so page i is
+now page j and vice versa). Let A˜ be the link matrix for the relabelled web.
+  • Argue that A_tilde = PAP, where P is the elementary matrix obtained by transposing rows i and
+    j of the n × n identity matrix. Note that the operation A → PA has the eﬀect of swapping
+    rows i and j of A, while A → AP swaps columns i and j. Also, P2 = I, the identity
+    matrix.
+  • Suppose that x is an eigenvector for A, so Ax = λx for some λ. Show that y = Px is an
+    eigenvector for A˜ with eigenvalue λ.
+  • Explain why this shows that transposing the indices of any two pages leaves the importance
+    scores unchanged, and use this result to argue that any permutation of the page indices leaves
+    the importance scores unchanged.
+"""
+
+
 import numpy as np
 from src import create_link_matrix, cal_importance_score, figure21_links
 
@@ -39,7 +59,7 @@ if __name__ == '__main__':
     # supposed eigenvector (to be shown)
     y = P @ x_
 
-    # let's see if the effects of the matrix A_mod matches (it is its eigenvalue)
+    # let's see if the effects of the matrix A_mod matches (see if it is its eigenvalue)
     check_1 = A_mod @ y
     check_2 = eig_lambda * y
 
