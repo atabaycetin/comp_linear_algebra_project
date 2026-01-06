@@ -7,7 +7,7 @@ score of a page with no backlinks is zero.
 
 
 import numpy as np
-from src import create_link_matrix, create_csr_link_matrix
+from src import create_csr_link_matrix
 
 
 if __name__ == '__main__':
@@ -17,11 +17,11 @@ if __name__ == '__main__':
 
     pages_with_no_backlinks = np.where(in_degree == 0)[0] # row indexes of pages with no backlinks
 
-    print(f"We found {len(pages_with_no_backlinks)} pages with no backlinks in our hollins web.")
+    print(f"We found {len(pages_with_no_backlinks)} pages with no backlinks in our hollins web.\n")
 
     # let's check those rows
     print(f"Sum of votes pages with no backlinks has received: {A[pages_with_no_backlinks].sum(axis=1).flatten()}")
-    print("As you can see, those rows are entirely zero.")
+    print("As you can see, those rows are entirely zero.\n")
 
     # now we choose a page to check its importance score
     test_page = pages_with_no_backlinks[0]
