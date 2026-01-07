@@ -91,8 +91,10 @@ def create_csr_link_matrix(file_path):
         """
 
         out_degrees = np.array(A.sum(axis=0)).flatten()
+        in_degrees = np.array(A.sum(axis=1)).flatten()
 
         danglings = np.where(out_degrees == 0)[0]  # apparently np.where returns a tuple thus the [0] indexing
+        no_backlinks = np.where(in_degrees == 0)[0]
 
         # weight adjustment (nj)
         A.data /= out_degrees[A.indices]  # now we have a correct link matrix
@@ -106,4 +108,4 @@ def create_csr_link_matrix(file_path):
             x0 = (1 - m) * (A @ x0) + (m * s)
             x0 += dangling_mass / n_pages
 
-    return x0, A
+    return x0, A, no_backlinks, dangling_mass, n_pages
