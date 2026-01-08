@@ -19,52 +19,42 @@ now page j and vice versa). Let A˜ be the link matrix for the relabelled web.
 
 
 import numpy as np
-import scipy as sp
-from src import create_csr_link_matrix
+from src import create_link_matrix, cal_importance_score, figure21_links
 
 
 if __name__ == '__main__':
     # construct the link matrix A
-    x0, A = create_csr_link_matrix('data\\hollins.dat')
+    A = create_link_matrix(figure21_links)
 
     # pick arbitrary i and j
     i, j = np.random.choice(A.shape[0], size=2, replace=False)
 
     # construct the matrix P
     P = np.eye(A.shape[0]); P[[i, j], :] = P[[j, i], :]
-    P = sp.sparse.csr_matrix(P)
 
-    # modified A by multiplying it with P
-    A_mod = (P @ A @ P)
+    # modified A by multiplying it with Ps
+    A_mod = P @ A @ P
 
-    # construct the answer by manually swapping rows to create a ground truth
-    # to compare with our result
-    # we convert it to list of lists sparse matrix format
-    # for a more efficient row swap operation
-    A_tilde = A.tolil()
-    A_tilde[[i, j], :] = A_tilde[[j, i], :]; A_tilde[:, [i, j]] = A_tilde[:, [j, i]]
-    A_tilde = A_tilde.tocsr()
+    # construct the answer to compare with our result
+    A_tilde = A.copy(); A_tilde[[i, j], :] = A_tilde[[j, i], :]; A_tilde[:, [i, j]] = A_tilde[:, [j, i]]
 
-    diff = A_mod - A_tilde
-    close_flag = np.isclose(diff.nnz, 0)
-    print(f"\nIs A_mod equal to A_tilde: {close_flag}")
+    print("Modified A as A_mod = PAP:")
+    print(A_mod)
 
-    if close_flag:
+    print("\nActual A_tilde:")
+    print(A_tilde)
+
+    print(f"\nIs A_mod equal to A_tilde: {np.allclose(A_mod, A_tilde)}")
+
+    if np.allclose(A_mod, A_tilde):
         print("We have showed that both matrices are equal\n")
 
     # calculate eigenvalues and eigenvectors of A
-    eigval_A, eigvec_A = sp.sparse.linalg.eigs(A)
-    print(f"Number of eigenvectors: {eigvec_A.shape}")
+    eigval_A, eigvec_A = np.linalg.eig(A)
 
-    # even though normally we would look for a perron eigenvalue for pagerank,
-    # the goal of this exercise is to numerically verify the mathematical expression
-    # hence we must pick an arbitrary eigenvalue
+    # pick an arbitrary one to check
     eig_lambda = eigval_A[0]
     x_ = eigvec_A[:, 0]
-
-    # let's filter out the machine precision
-    # (values that are zero but computer stores them as very small numbers)
-    x_[np.abs(x_) < 1e-10] = 0.0
 
     # supposed eigenvector (to be shown)
     y = P @ x_
