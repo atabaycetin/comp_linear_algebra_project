@@ -11,7 +11,7 @@ from src import create_csr_link_matrix
 
 
 if __name__ == '__main__':
-    x0, A = create_csr_link_matrix('data\\hollins.dat')
+    x0, A, _, _, _ = create_csr_link_matrix('data\\hollins.dat')
 
     in_degree = np.array(A.sum(axis=1)).flatten() # number of incoming links
 
