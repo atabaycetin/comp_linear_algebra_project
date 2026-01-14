@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     print(f"Is link matrix column stochastic: {is_column_stochastic(link_mat)}\n")
 
-    print(link_mat)
+    print(link_mat, "\n")
 
     eigVals, eigVecs = np.linalg.eig(link_mat)
 
@@ -46,8 +46,10 @@ if __name__ == "__main__":
     # decided to use .isclose due to possible rounding errors
     idx = np.where(np.isclose(eigVals, 1))
 
+    print(f"dim(V1(A)) = {len(idx[0])}.")
+
     if len(idx[0]) >= 3:
-        print("dim(V1(A)) equals (or exceeds) the number of the components in the web")
+        print("dim(V1(A)) equals (or exceeds) the number of the components in the web.")
     else:
-        print("dim(V1(A)) does not equal the number of components in the web")
+        print("dim(V1(A)) does not equal the number of components in the web.")
 
