@@ -11,6 +11,7 @@ from src import create_link_matrix, create_csr_link_matrix
 
 
 if __name__ == '__main__':
+    # an example web
     links = {
         1: [2, 3],
         2: [3],
