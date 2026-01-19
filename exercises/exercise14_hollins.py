@@ -1,3 +1,14 @@
+#---------------  EXERCISE 14 ---------------#
+# We created a new file since the solution would be too long for a single file
+
+"""
+Exercise 14. For the web in Exercise 11, compute the values of ∥Mk x0−q∥1 and ∥Mk x0−q∥1
+∥Mk−1 x0−q∥1
+for k = 1, 5, 10, 50, using an initial guess x0 not too close to the actual eigenvector q (so that you
+can watch the convergence). Determine c = max1≤j≤n |1− 2 min1≤i≤n Mij | and the absolute value
+of the second largest eigenvalue of M.
+"""
+
 import numpy as np
 import scipy.sparse as sp
 import scipy.sparse.linalg
@@ -132,16 +143,16 @@ def iterative_pagerank(A, n_pages, danglings, m=0.15, steps=[1, 5, 10, 50]):
         # Combine the dangling part and the teleport part into one scalar
         scalar_correction = ((1 - m) * dangle_sum + m) / n_pages
 
-        # 3. Update x
+        # Update x
         # (1-m)Ax + scalar
         x = (1 - m) * Ax + scalar_correction
 
-        # 4. Error Calculation
+        # Error Calculation
         current_error = np.sum(np.abs(x - q))
 
         if k in steps:
             ratio = current_error / prev_error if prev_error > 1e-16 else 0.0
-            print(f"{k:<5} | {current_error:<25.8e} | {ratio:.4f}")
+            print(f"{k:<5} | {current_error:<25.4e} | {ratio:.4e}")
 
         prev_error = current_error
 
@@ -157,7 +168,7 @@ def calculate_c_and_lambda2(M_op, n_pages, m):
     c = abs(1 - 2 * min_Mij)
 
     print("-" * 45)
-    print(f"c = max |1 - 2 * min(Mij)| = {c:.8f}")
+    print(f"c = max |1 - 2 * min(Mij)| = {c:.4e}")
 
     # Calculate second largest eigenvalue
     print("Computing second largest eigenvalue...")
@@ -166,20 +177,16 @@ def calculate_c_and_lambda2(M_op, n_pages, m):
     vals_sorted = sorted(np.abs(vals), reverse=True)
     lambda2 = vals_sorted[1]
 
-    print(f"|lambda_2| = {lambda2:.8f}")
+    print(f"|lambda_2| = {lambda2:.4e}")
 
 
 if __name__ == "__main__":
-    # 1. Parse Data
     n_pages, links = parse_hollins('./data/hollins.dat')
 
-    # 2. Create Matrices
     A = create_csr_link_matrix(n_pages, links)
     danglings = get_dangling_nodes(n_pages, links)
 
-    # 3. Solve Exercise 14
     # Note: m=0.15 is the teleport probability (often denoted as alpha=0.85 in damping context)
     M_op = iterative_pagerank(A, n_pages, danglings, m=0.15, steps=[1, 5, 10, 50])
 
-    # 4. Calculate Parameters
     calculate_c_and_lambda2(M_op, n_pages, m=0.15)

@@ -34,7 +34,7 @@ if __name__ == "__main__":
         error_subk = np.sum(np.abs(x0 - q))
         error_k = np.sum(np.abs(M @ x0 - q))
         ratio = error_k / error_subk if error_subk > 1e-15 else 0.0
-        print(f"{k[count]:<5} | {error_k:<25.8f} | {ratio:<25.8f}")
+        print(f"{k[count]:<5} | {error_k:<25.4e} | {ratio:<25.4e}")
         count += 1
 
     print("\n--- Theoretical Constants ---")
@@ -43,9 +43,9 @@ if __name__ == "__main__":
     min_col_values = np.min(M, axis=0)
     c_values = np.abs(1 - 2 * min_col_values)
     c = np.max(c_values)
-    print(f"Bound constant c (Proposition 4): {c:.4f}")
+    print(f"Bound constant c (Proposition 4): {c:.4e}")
     # Calculate second largest eigenvalue magnitude
     eigenvalues, eigenvectors = np.linalg.eig(M)
     sorted_eig_mags = np.sort(np.abs(eigenvalues))[::-1]  # Sort descending
     lambda_2 = sorted_eig_mags[1]  # The 2nd one (index 1)
-    print(f"|lambda_2| (Actual convergence rate): {lambda_2:.4f}")
+    print(f"|lambda_2| (Actual convergence rate): {lambda_2:.4e}")

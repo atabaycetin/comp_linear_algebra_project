@@ -17,6 +17,11 @@ figure22_links = {
 }
 
 def create_link_matrix(links_list):
+    """
+    This function creates a link matrix from a list of links in a dictionary representation of a web.
+    :param links_list: list of links of the web
+    :return: link matrix
+    """
     n = len(links_list)
 
     link_matrix = np.zeros((n, n), dtype=np.float64)
@@ -34,25 +39,36 @@ def create_link_matrix(links_list):
     return link_matrix
 
 def is_column_stochastic(link_matrix, tol=1e-12):
+    """
+    This function checks whether a matrix is stochastic or not.
+    :param link_matrix: link matrix of the given web
+    :param tol: tolerance for close method
+    :return: boolean non_negative and boolean columns_sum_to_one
+    """
     non_negative = np.all(link_matrix >= -tol)
     columns_sum_to_one = np.allclose(link_matrix.sum(axis=0), 1, atol=tol)
     return non_negative and columns_sum_to_one
 
 def cal_importance_score(link_matrix):
+    """
+    This function calculate the importance score given a link matrix
+    :param link_matrix: link matrix of the given web
+    :return: importance scores vector of the given link matrix
+    """
     n = link_matrix.shape[0]
     B = link_matrix - np.eye(n)
     B[-1, :] = 1.0
     b = np.zeros(n)
     b[-1] = 1.0
     x = np.linalg.solve(B, b)
-
     return x
 
 def create_csr_link_matrix(file_path):
     """
     This function is created to handle the provided web structure within the file "hollins.dat"
     :param file_path: path of the hollins.dat file
-    :return: x0 (importance scores vector), A (CSR Link Matrix)
+    :return: x0 (importance scores vector), A (CSR Link Matrix), no_backlinks (number of backlinks)
+             dangling_mass, n_pages (number of pages)
     """
     with open(file_path, "r") as f:
         header = f.readline().split()

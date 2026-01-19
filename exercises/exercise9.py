@@ -24,7 +24,7 @@ if __name__ == '__main__':
     result_M = cal_importance_score(M)
 
     # here we are doing the same visualization for the hollins web
-    x0, _, no_backlinks, dangling_mass, n_pages = create_csr_link_matrix("../data/hollins.dat")
+    x0, _, no_backlinks, dangling_mass, n_pages = create_csr_link_matrix("./data/hollins.dat")
     example_node = x0[no_backlinks[0]]
     """
     But in this web, we handled dangling nodes via distributing their probability with random jumps.
