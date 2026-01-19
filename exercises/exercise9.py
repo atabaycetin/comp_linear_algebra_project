@@ -20,6 +20,7 @@ if __name__ == '__main__':
     linkmatrix = create_link_matrix(modified)
     S = np.ones(linkmatrix.shape) * (1 / len(linkmatrix))
     m = 0.15
+    
     M = (1 - m) * linkmatrix + m * S
     result_M = cal_importance_score(M)
 
