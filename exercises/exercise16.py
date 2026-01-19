@@ -1,9 +1,13 @@
 #---------------  EXERCISE 16 ---------------#
+
+"""
+Consider the link matrix A (see from the figure below)
+Show that M = (1− m)A + mS (all Sij = 1/3) is not diagonalizable for 0 ≤ m < 1.
+"""
+
+
 if __name__ == "__main__":
-    """
-    Consider the link matrix A (see from the figure below)
-    Show that M = (1− m)A + mS (all Sij = 1/3) is not diagonalizable for 0 ≤ m < 1.
-    """
+
     import numpy as np
     from numpy.linalg import matrix_rank
 

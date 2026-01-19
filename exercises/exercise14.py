@@ -6,6 +6,8 @@ for k = 1, 5, 10, 50, using an initial guess x0 not too close to the actual eige
 can watch the convergence). Determine c = max1≤j≤n |1− 2 min1≤i≤n Mij | and the absolute value
 of the second largest eigenvalue of M.
 """
+
+
 import numpy as np
 from exercise11 import M, linkmatrix
 from src import cal_importance_score
