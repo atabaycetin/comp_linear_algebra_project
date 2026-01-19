@@ -17,12 +17,7 @@ def parse_hollins(filename):
 
     links = {}
 
-    # The file structure is:
-    # Header
-    # n_pages lines of 'ID URL'
-    # n_links lines of 'SOURCE TARGET'
-
-    # Skip header (1 line) and page definitions (n_pages lines)
+    # we skip the header
     start_line = 1 + n_pages
 
     edge_lines = lines[start_line:]
@@ -91,29 +86,22 @@ def iterative_pagerank(A, n_pages, danglings, m=0.15, steps=[1, 5, 10, 50]):
     A: Sparse link matrix (column stochastic for non-dangling nodes)
     m: Teleportation probability (1 - damping factor)
     """
-    # Initial vector x0 (uniform)
+    # Initial random vector x0 
     x = np.ones(n_pages) / n_pages
     x0_start = x.copy()
 
-    # --- OPTIMIZATION 1: Efficient Matrix-Vector Product ---
-    # We simplify the math to avoid creating dense arrays of 1s.
-    # Original: x_new = (1 - m) * (Ax + dangle_vec) + m * teleport_vec
-    # Optimized: x_new = (1 - m) * Ax + scalar_value
+    # We will be using the optimized equatio to avoid dense matrices: x_new = (1 - m) * Ax + scalar_value
 
     def matvec(v):
-        # 1. Sparse multiplication
+
         Ax = A @ v
 
-        # 2. Calculate the scalar correction for dangling nodes + teleportation
-        # Mass from dangling nodes = sum(v[dangling_indices])
+        # Calculate the scalar correction for dangling nodes
         dangling_mass = np.sum(v[danglings])
 
         # Combined scalar to add to every element:
         # ((1-m) * (dangling_mass/N)) + (m * (sum(v)/N))
-        # Note: inside the solver, sum(v) might not be exactly 1, so we keep it.
         scalar_add = ((1 - m) * dangling_mass / n_pages) + (m * np.sum(v) / n_pages)
-
-        # Numpy broadcasts the scalar addition efficiently
         return (1 - m) * Ax + scalar_add
 
     print("Computing steady state q...")
@@ -131,23 +119,17 @@ def iterative_pagerank(A, n_pages, danglings, m=0.15, steps=[1, 5, 10, 50]):
     print(f"{'k':<5} | {'Error ||M^k x0 - q||_1':<25} | {'Ratio'}")
     print("-" * 45)
 
-    # Pre-calculate initial error for the ratio calculation
+    # First we calculate initial error for the ratio calculation
     prev_error = np.sum(np.abs(x - q))
 
     for k in range(1, max_k + 1):
-        # --- OPTIMIZATION 2: Loop without allocations ---
 
-        # 1. Sparse Matrix Multiply
         Ax = A @ x
 
-        # 2. Compute scalar constant for this iteration
-        # Since x is a probability vector, sum(x) is theoretically 1.0,
-        # but we use the actual sum(x) or 1.0 depending on precision needs.
+        # Compute scalar constant for this iteration
         dangle_sum = np.sum(x[danglings])
 
         # Combine the dangling part and the teleport part into one scalar
-        # Term 1: (1-m) * (dangle_sum / N)
-        # Term 2: m * (1.0 / N)
         scalar_correction = ((1 - m) * dangle_sum + m) / n_pages
 
         # 3. Update x
