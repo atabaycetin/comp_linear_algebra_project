@@ -20,7 +20,7 @@ spaces exist in the web. of course we only take the ones with eigval = 1
 """
 
 import numpy as np
-from exercises.src import create_link_matrix, is_column_stochastic
+from src import create_link_matrix, is_column_stochastic
 
 if __name__ == "__main__":
     links = {

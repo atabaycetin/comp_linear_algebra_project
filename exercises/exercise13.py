@@ -8,7 +8,7 @@ we will be using that (fig2.2) with a little modification"""
 
 
 import numpy as np
-from exercises.src import figure22_links, create_link_matrix, cal_importance_score
+from src import figure22_links, create_link_matrix, cal_importance_score
 
 
 if __name__ == "__main__":

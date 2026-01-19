@@ -8,7 +8,7 @@ links to page 3; page 3 also links to page 5. Does this boost
 page 3’s score above that of page 1?
 """
 
-from exercises.src import create_link_matrix, cal_importance_score
+from src import create_link_matrix, cal_importance_score
 
 if __name__ == "__main__":
     links = {

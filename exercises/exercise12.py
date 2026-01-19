@@ -9,7 +9,7 @@ the results.
 
 
 import numpy as np
-from exercises.src import create_link_matrix, cal_importance_score
+from src import create_link_matrix, cal_importance_score
 from exercise11 import new_links as old_links
 
 

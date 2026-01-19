@@ -4,7 +4,7 @@ Show that a page with no backlinks is given importance score m/n by formula (3.2
 """
 
 import numpy as np
-from exercises.src import create_link_matrix, create_csr_link_matrix, cal_importance_score, figure21_links as figure
+from src import create_link_matrix, create_csr_link_matrix, cal_importance_score, figure21_links as figure
 
 if __name__ == '__main__':
     # We will modify a figure we already have and add a node without any backlinks so we can work on it
