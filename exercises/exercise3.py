@@ -8,7 +8,7 @@ What is the dimension of V1(A)?
 """
 
 import numpy as np
-from src import create_link_matrix, figure22_links
+from exercises.src import create_link_matrix, figure22_links
 
 if __name__ == "__main__":
 

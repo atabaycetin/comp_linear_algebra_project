@@ -10,7 +10,7 @@ of the second largest eigenvalue of M.
 
 import numpy as np
 from exercise11 import M, linkmatrix
-from src import cal_importance_score
+from exercises.src import cal_importance_score
 
 def iterativeapproach(link_matrix):
     m = 0.15

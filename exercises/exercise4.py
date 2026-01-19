@@ -8,7 +8,7 @@ the vector so that components sum to one. Does the resulting ranking seem reason
 """
 
 import numpy as np
-from src import create_link_matrix, cal_importance_score, figure21_links
+from exercises.src import create_link_matrix, figure21_links
 
 if __name__ == "__main__":
 

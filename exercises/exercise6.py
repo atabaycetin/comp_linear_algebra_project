@@ -19,7 +19,7 @@ now page j and vice versa). Let A˜ be the link matrix for the relabelled web.
 
 
 import numpy as np
-from src import create_link_matrix, cal_importance_score, figure21_links
+from exercises.src import create_link_matrix, figure21_links
 
 
 if __name__ == '__main__':

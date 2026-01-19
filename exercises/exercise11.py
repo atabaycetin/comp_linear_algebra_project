@@ -6,7 +6,7 @@ M (corresponding to λ = 1) that has positive components summing to one. Use m =
 """
 
 import numpy as np
-from src import create_link_matrix, cal_importance_score, figure21_links
+from exercises.src import create_link_matrix, cal_importance_score, figure21_links
 
 new_links = {k: v.copy() for k, v in figure21_links.items()}
 new_links.get(3).append(5)

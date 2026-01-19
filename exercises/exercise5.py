@@ -7,7 +7,7 @@ score of a page with no backlinks is zero.
 
 
 import numpy as np
-from src import create_link_matrix, create_csr_link_matrix
+from exercises.src import create_link_matrix, create_csr_link_matrix
 
 
 if __name__ == '__main__':
