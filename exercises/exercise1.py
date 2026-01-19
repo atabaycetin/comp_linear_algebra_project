@@ -21,6 +21,7 @@ if __name__ == "__main__":
     A = create_link_matrix(links)
 
     scores_A = cal_importance_score(A)
+    print("Importance scores in the beginning:", scores_A)
 
     # add page 5 and new links
     new_links = {k: v.copy() for k, v in links.items()}
@@ -30,9 +31,9 @@ if __name__ == "__main__":
     new_A = create_link_matrix(new_links)
 
     scores_new_A = cal_importance_score(new_A)
+    print("\nImportance scores after creating page 5, linking it with page 3, \nand linking page 3 to page 5 :", scores_new_A)
 
     if scores_new_A[2] > scores_new_A[0]:
-        print("It worked. They did boost page 3's score")
+        print("\nIt worked. They did boost page 3's score")
     else:
-        print("They can keep being infuriated")
-
+        print("\nThey can keep being infuriated")
