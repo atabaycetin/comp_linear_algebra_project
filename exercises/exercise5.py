@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     print("\n" + "-" * 60 + "\n")
     print("Now, let's do the exercise on the Hollins dataset")
-    x0, A, _, _, _ = create_csr_link_matrix('../data/hollins.dat')
+    _, A, _, _, _ = create_csr_link_matrix('../data/hollins.dat')
 
     in_degree = np.array(A.sum(axis=1)).flatten() # number of incoming links
 
